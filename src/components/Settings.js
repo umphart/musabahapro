@@ -24,14 +24,15 @@ const Settings = () => {
 
   // Company settings form
   const [companyForm, setCompanyForm] = useState({
-    companyName: 'Landcity Properties Nigeria Limited',
-    phone1: '+234 911 366 8055',
-    phone2: '+234 906 705 7443',
-    email: 'info@lancitypropertiesnigltd.com',
-    website: 'www.lancitypropertiesnigltd.com',
-    address: 'Shop No. 76&75 Rahama Shopping Complex, Mariri, Maiduguri Road, Opp. Audu Manager Filling Station, Kumbotso L.G, Kano State',
-    whatsapp: '+234 803 230 6942',
-    youtube: '@landcityproperties',
+    companyName: 'MUSAHAHA HOMES LTD.',
+    phone1: '+2349064220705',
+    phone2: '+2349039108853',
+    phone3: '+2347038192719',
+    email: 'musabahahomesltd@gmail.com',
+    website: 'www.musabahahomes.com',
+    address: 'No. 015, City Plaza Along Ring Road Western Bypass Along Yankaba Road, Kano State.',
+    whatsapp: '+2349064220705',
+    youtube: '@musabahahomes',
   });
 
   // Database stats
@@ -110,13 +111,10 @@ const Settings = () => {
     setLoading(true);
 
     try {
-      // Get current user from session
-      const username = sessionStorage.getItem('landcityAdminUser') || 'admin';
+      const username = sessionStorage.getItem('musabahaAdminUser') || 'admin';
       
       console.log('Attempting password change for user:', username);
-      console.log('Current password entered:', passwordForm.currentPassword);
       
-      // Get user from database
       const { data: userData, error: userError } = await supabase
         .from('admin_users')
         .select('*')
@@ -126,7 +124,6 @@ const Settings = () => {
       if (userError) {
         console.error('User fetch error:', userError);
         
-        // Check if table exists
         if (userError.code === '42P01') {
           toast.error('Admin users table not found. Please run the SQL setup in Supabase.');
           return;
@@ -134,23 +131,14 @@ const Settings = () => {
         throw new Error('Admin user not found in database');
       }
 
-      console.log('User data from DB:', { 
-        username: userData.username, 
-        storedPassword: userData.password_hash,
-        enteredPassword: passwordForm.currentPassword,
-        passwordsMatch: userData.password_hash === passwordForm.currentPassword
-      });
-
       if (!userData) {
         throw new Error('Admin user not found');
       }
 
-      // Check if current password matches
       if (userData.password_hash !== passwordForm.currentPassword) {
-        throw new Error(`Current password is incorrect. Stored: "${userData.password_hash}", Entered: "${passwordForm.currentPassword}"`);
+        throw new Error('Current password is incorrect');
       }
 
-      // Update password
       const { error: updateError } = await supabase
         .from('admin_users')
         .update({ password_hash: passwordForm.newPassword })
@@ -163,12 +151,11 @@ const Settings = () => {
 
       toast.success('Password changed successfully!');
       
-      // Clear form
       setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
 
     } catch (error) {
       console.error('Password change error:', error);
-      toast.error(error.message || 'Failed to change password. Check console for details.');
+      toast.error(error.message || 'Failed to change password.');
     } finally {
       setLoading(false);
     }
@@ -187,6 +174,7 @@ const Settings = () => {
           company_name: companyForm.companyName,
           phone1: companyForm.phone1,
           phone2: companyForm.phone2,
+          phone3: companyForm.phone3,
           email: companyForm.email,
           website: companyForm.website,
           address: companyForm.address,
@@ -223,7 +211,7 @@ const Settings = () => {
           username: 'admin',
           password_hash: 'admin123',
           full_name: 'Admin User',
-          email: 'admin@landcity.com',
+          email: 'musabahahomesltd@gmail.com',
           role: 'super_admin'
         }], { onConflict: 'username' });
 
@@ -376,27 +364,28 @@ const Settings = () => {
               <FaBuilding className="settings-card-icon" />
               <div>
                 <h3>Company Information</h3>
-                <p>Update your company details displayed on the website</p>
+                <p>Update your company details displayed on the website and receipts</p>
               </div>
             </div>
             <form onSubmit={handleCompanySettings} className="settings-form">
-              <div className="form-row">
-                <div className="form-group">
-                  <label><FaBuilding /> Company Name</label>
-                  <input
-                    type="text"
-                    value={companyForm.companyName}
-                    onChange={(e) => setCompanyForm({ ...companyForm, companyName: e.target.value })}
-                  />
-                </div>
-                <div className="form-group">
-                  <label><FaEnvelope /> Email</label>
-                  <input
-                    type="email"
-                    value={companyForm.email}
-                    onChange={(e) => setCompanyForm({ ...companyForm, email: e.target.value })}
-                  />
-                </div>
+              <div className="form-group">
+                <label><FaBuilding /> Company Name</label>
+                <input
+                  type="text"
+                  value={companyForm.companyName}
+                  onChange={(e) => setCompanyForm({ ...companyForm, companyName: e.target.value })}
+                  placeholder="MUSAHAHA HOMES LTD."
+                />
+              </div>
+
+              <div className="form-group">
+                <label><FaMapMarkerAlt /> Address</label>
+                <textarea
+                  value={companyForm.address}
+                  onChange={(e) => setCompanyForm({ ...companyForm, address: e.target.value })}
+                  rows="2"
+                  placeholder="No. 015, City Plaza Along Ring Road Western Bypass Along Yankaba Road, Kano State."
+                />
               </div>
 
               <div className="form-row">
@@ -406,6 +395,7 @@ const Settings = () => {
                     type="text"
                     value={companyForm.phone1}
                     onChange={(e) => setCompanyForm({ ...companyForm, phone1: e.target.value })}
+                    placeholder="+2349064220705"
                   />
                 </div>
                 <div className="form-group">
@@ -414,6 +404,28 @@ const Settings = () => {
                     type="text"
                     value={companyForm.phone2}
                     onChange={(e) => setCompanyForm({ ...companyForm, phone2: e.target.value })}
+                    placeholder="+2349039108853"
+                  />
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label><FaPhone /> Phone 3</label>
+                  <input
+                    type="text"
+                    value={companyForm.phone3}
+                    onChange={(e) => setCompanyForm({ ...companyForm, phone3: e.target.value })}
+                    placeholder="+2347038192719"
+                  />
+                </div>
+                <div className="form-group">
+                  <label><FaEnvelope /> Email</label>
+                  <input
+                    type="email"
+                    value={companyForm.email}
+                    onChange={(e) => setCompanyForm({ ...companyForm, email: e.target.value })}
+                    placeholder="musabahahomesltd@gmail.com"
                   />
                 </div>
               </div>
@@ -425,6 +437,7 @@ const Settings = () => {
                     type="text"
                     value={companyForm.website}
                     onChange={(e) => setCompanyForm({ ...companyForm, website: e.target.value })}
+                    placeholder="www.musabahahomes.com"
                   />
                 </div>
                 <div className="form-group">
@@ -433,6 +446,7 @@ const Settings = () => {
                     type="text"
                     value={companyForm.whatsapp}
                     onChange={(e) => setCompanyForm({ ...companyForm, whatsapp: e.target.value })}
+                    placeholder="+2349064220705"
                   />
                 </div>
               </div>
@@ -443,15 +457,7 @@ const Settings = () => {
                   type="text"
                   value={companyForm.youtube}
                   onChange={(e) => setCompanyForm({ ...companyForm, youtube: e.target.value })}
-                />
-              </div>
-
-              <div className="form-group">
-                <label><FaMapMarkerAlt /> Address</label>
-                <textarea
-                  value={companyForm.address}
-                  onChange={(e) => setCompanyForm({ ...companyForm, address: e.target.value })}
-                  rows="3"
+                  placeholder="@musabahahomes"
                 />
               </div>
 
@@ -504,7 +510,7 @@ const Settings = () => {
               </button>
               <button 
                 className="btn-secondary"
-                onClick={() => window.open('https://supabase.com/dashboard/project/epjrvxbbppumrprofgbo', '_blank')}
+                onClick={() => window.open('https://supabase.com/dashboard', '_blank')}
               >
                 <FaDatabase /> Open Supabase Dashboard
               </button>
@@ -519,10 +525,6 @@ const Settings = () => {
               <div className="info-row">
                 <span>Database:</span>
                 <span>Supabase PostgreSQL</span>
-              </div>
-              <div className="info-row">
-                <span>Project URL:</span>
-                <span>epjrvxbbppumrprofgbo.supabase.co</span>
               </div>
               <div className="info-row">
                 <span>Auth Method:</span>

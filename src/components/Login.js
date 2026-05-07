@@ -22,6 +22,8 @@ const Login = () => {
       const success = await login(username, password);
       if (success) {
         navigate('/dashboard');
+      } else {
+        setError('Invalid username or password');
       }
     } catch (err) {
       setError('An error occurred. Please try again.');
@@ -37,9 +39,9 @@ const Login = () => {
       <div className="login-card">
         <div className="login-header">
           <div className="logo-wrapper">
-            <img src="/assets/logo.jpeg" alt="Landcity Logo" className="login-logo" />
+            <img src="/assets/logo.jpg" alt="Musabaha Homes" className="login-logo" />
           </div>
-          <h1>Landcity<span>.</span>Properties</h1>
+          <h1>Musabaha<span>.</span>Homes</h1>
           <p>Admin Portal</p>
         </div>
         
@@ -54,7 +56,7 @@ const Login = () => {
           <div className="form-group">
             <label>Username</label>
             <div className="input-wrapper">
-            
+              <FaUser className="input-icon" />
               <input
                 type="text"
                 value={username}
@@ -69,7 +71,7 @@ const Login = () => {
           <div className="form-group">
             <label>Password</label>
             <div className="input-wrapper">
-          
+              <FaLock className="input-icon" />
               <input
                 type={showPassword ? 'text' : 'password'}
                 value={password}
@@ -102,6 +104,14 @@ const Login = () => {
             )}
           </button>
           
+          <div className="login-footer">
+            <a href="/" className="back-link">
+              <FaArrowLeft /> Back to Website
+            </a>
+            <div className="default-creds">
+              Default: admin / admin123
+            </div>
+          </div>
         </form>
       </div>
     </div>

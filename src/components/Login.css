@@ -16,7 +16,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('../../public/assets/banner.jpeg');
+  background-image: url('../../public/assets/banner.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -58,7 +58,7 @@
 }
 
 .login-header {
-  background: linear-gradient(135deg, #0f3b3b 0%, #1a5c5c 100%);
+  background: linear-gradient(135deg, #0414ec 0%, #0c29d3 100%);
   padding: 40px 40px 30px;
   text-align: center;
   color: white;
@@ -73,7 +73,7 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(184, 134, 11, 0.1) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(184, 134, 11, 0.15) 0%, transparent 60%);
   animation: pulse 3s ease-in-out infinite;
 }
 
@@ -117,6 +117,7 @@
   color: white;
   font-family: 'Playfair Display', serif;
   font-weight: 700;
+  letter-spacing: -0.5px;
   position: relative;
   z-index: 1;
 }

@@ -33,9 +33,10 @@ const PaymentHistory = ({ client, payments, onClose, formatCurrency }) => {
               </p>
             </div>
             <div className="table-container">
-              <table>
+              <table className="dashboard-table">
                 <thead>
                   <tr>
+                    <th>Receipt No.</th>
                     <th>Date</th>
                     <th>Type</th>
                     <th>Method</th>
@@ -49,6 +50,7 @@ const PaymentHistory = ({ client, payments, onClose, formatCurrency }) => {
                   {payments.length > 0 ? (
                     payments.map((payment) => (
                       <tr key={payment.id}>
+                        <td className="receipt-number">{payment.receipt_number || payment.id?.substring(0, 8).toUpperCase()}</td>
                         <td>{new Date(payment.payment_date).toLocaleDateString('en-NG')}</td>
                         <td>
                           <span className={`payment-type ${payment.payment_type}`}>
@@ -56,14 +58,17 @@ const PaymentHistory = ({ client, payments, onClose, formatCurrency }) => {
                           </span>
                         </td>
                         <td>{payment.payment_method?.replace('_', ' ')}</td>
-                        <td>{formatCurrency(payment.amount)}</td>
-                        <td>{formatCurrency(payment.remaining_balance)}</td>
+                        <td className="paid-amount">{formatCurrency(payment.amount)}</td>
+                        <td className={Number(payment.remaining_balance) > 0 ? 'remaining-balance' : 'completed-balance'}>
+                          {formatCurrency(payment.remaining_balance)}
+                        </td>
                         <td>{payment.notes || '-'}</td>
                         <td>
                           <button 
                             onClick={() => handleViewReceipt(payment)} 
                             className="btn-icon btn-receipt"
                             title="View Receipt"
+                            style={{ color: '#b8860b' }}
                           >
                             <FaFileInvoiceDollar />
                           </button>
@@ -72,7 +77,7 @@ const PaymentHistory = ({ client, payments, onClose, formatCurrency }) => {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="7" className="no-data">No payment records found</td>
+                      <td colSpan="8" className="no-data">No payment records found</td>
                     </tr>
                   )}
                 </tbody>

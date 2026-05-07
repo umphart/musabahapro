@@ -27,6 +27,10 @@ const Layout = () => {
     <div className="admin-layout">
       <aside className={`sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
         <div className="sidebar-header">
+          <div className="logo-area">
+            
+            {sidebarOpen && <span className="logo-text">Musabaha Homes</span>}
+          </div>
           <button onClick={() => setSidebarOpen(!sidebarOpen)} className="toggle-btn">
             <FaBars />
           </button>
@@ -34,7 +38,7 @@ const Layout = () => {
         
         <div className="sidebar-user">
           <div className="user-avatar">
-            <img src="/assets/logo.jpeg" alt="User" />
+            <img src="/assets/logo.jpg" alt="User" />
           </div>
           <div className="user-info">
             <strong>{user?.full_name || 'Admin User'}</strong>
@@ -59,18 +63,14 @@ const Layout = () => {
             <FaMoneyBillWave className="nav-icon" />
             <span>Payments</span>
           </NavLink>
-<NavLink to="/settings" className={({ isActive }) => isActive ? 'active' : ''}>
-  <FaCog className="nav-icon" />
-  <span>Settings</span>
-</NavLink>
+          <NavLink to="/settings" className={({ isActive }) => isActive ? 'active' : ''}>
+            <FaCog className="nav-icon" />
+            <span>Settings</span>
+          </NavLink>
         </nav>
         
-        
         <div className="sidebar-footer">
-          <NavLink to="/" className="home-link">
-            <FaHome className="nav-icon" />
-            <span>View Website</span>
-          </NavLink>
+
           <button onClick={handleLogout} className="logout-btn">
             <FaSignOutAlt className="nav-icon" />
             <span>Logout</span>

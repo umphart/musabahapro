@@ -158,12 +158,12 @@ const ReceiptModal = ({ client, payment, onClose, formatCurrency }) => {
       <div class="copy-label" style="background: ${copyColor};">${copyLabel}</div>
       
       <div class="header">
-        <img src="/assets/logo.jpeg" alt="Logo" />
-        <h1>LANDCITY PROPERTIES NIGERIA LIMITED</h1>
+        <img src="/assets/logo.jpg" alt="Logo" />
+        <h1>MUSABAHA HOMES LIMITED</h1>
         <h2>Property Management | Real Estate Management</h2>
-        <p>Shop No. 76&75 Rahama Shopping Complex, Mariri, Maiduguri Road,</p>
-        <p>Opp. Audu Manager Filling Station, Kumbotso L.G, Kano State</p>
-        <p>📞 +234 911 366 8055, +234 906 705 7443 | 🌐 www.landcitypropertiesnigltd.com</p>
+        <p>No. 015, City Plaza Along Ring Road Western Bypass Along Yankaba Road, Kano state,</p>
+        
+        <p>📞 +2349064220705, +2349039108853, +2347038192719 | 🌐 musabahahomesltd@gmail.com</p>
       </div>
       
       <div class="section-title">PAYMENT RECEIPT</div>
@@ -210,7 +210,7 @@ const ReceiptModal = ({ client, payment, onClose, formatCurrency }) => {
           <div class="sig-line">Customer Signature</div>
         </div>
         <div class="sig-block">
-          <div class="sig-line">Landcity Properties Stamp & Sign</div>
+          <div class="sig-line">Musabaha Stamp & Sign</div>
         </div>
       </div>
       

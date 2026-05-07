@@ -41,7 +41,7 @@ const Login = () => {
           <div className="logo-wrapper">
             <img src="/assets/logo.jpg" alt="Musabaha Homes" className="login-logo" />
           </div>
-          <h1>Musabaha<span>.</span>Homes</h1>
+          <h1>Musabaha Homes LTD</h1>
           <p>Admin Portal</p>
         </div>
         
@@ -105,9 +105,7 @@ const Login = () => {
           </button>
           
           <div className="login-footer">
-            <a href="/" className="back-link">
-              <FaArrowLeft /> Back to Website
-            </a>
+          
             <div className="default-creds">
               Default: admin / admin123
             </div>

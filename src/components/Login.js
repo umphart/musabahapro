@@ -56,7 +56,7 @@ const Login = () => {
           <div className="form-group">
             <label>Username</label>
             <div className="input-wrapper">
-              <FaUser className="input-icon" />
+             
               <input
                 type="text"
                 value={username}
@@ -71,7 +71,7 @@ const Login = () => {
           <div className="form-group">
             <label>Password</label>
             <div className="input-wrapper">
-              <FaLock className="input-icon" />
+              
               <input
                 type={showPassword ? 'text' : 'password'}
                 value={password}
